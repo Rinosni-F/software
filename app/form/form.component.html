@@ -1,0 +1,63 @@
+<div class="container">
+<div class="card " style="margin: 200px;">
+    <h1>Forms</h1>
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+ 
+    <p style="margin-left: 100px;">
+      <label for="firstname">First Name: </label><br>
+      <input type="text" id="firstname" name="firstname" formControlName="firstname">
+    </p>
+   
+    <p style="margin-left: 100px;">
+      <label for="lastname">Last Name: </label><br>
+      <input type="text" id="lastname" name="lastname" formControlName="lastname">
+    </p>
+   
+    <p style="margin-left: 100px;">
+      <label for="email">Email: </label><br>
+      <input type="text" id="email" name="email" formControlName="email">
+    </p>
+   <p style="margin-left: 100px;">
+      <label for="faculty">Faculty: </label><br>
+      <input type="text" id="name" name="name" formControlName="faculty">
+
+    </p>
+    <p style="margin-left: 100px;">
+        <label for="gender">Select Course</label>
+        <input type="radio" value="course" id="course" name="course" formControlName="faculty"> java
+        <input type="radio" value="course" id="course" name="course" formControlName="faculty"> python
+      </p>
+   
+ 
+      <button style="margin-left: 100px; background-color: blue;" type="submit">Submit</button>
+    </form><br>
+    
+
+  <div class="grid" [ngStyle]="{'font-size.px':44}" >
+    <div class="row">
+    <div class="card col-sm-3"*ngFor = "let courses of courses">
+      <div class="card-body">
+        <h2 class="card-title" style="background-color: aqua;">
+          {{courses.firstname}}
+        </h2>
+        <h4>
+          {{courses.lastname}}
+        </h4>
+        <h5 [ngSwitch] ="courses.specialTag">
+          <div *ngSwitchCase="'a'">AAA</div>
+          <div *ngSwitchCase=" 'b'">BBB</div>
+          <div *ngSwitchCase="'c'">CCC</div>
+   
+        </h5>
+        <div class="card-text">{{courses.email}}<br>
+          <span>{{courses.selectcourse}}</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span>{{courses.faculty}}</span>
+       </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>

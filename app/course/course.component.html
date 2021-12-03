@@ -1,0 +1,157 @@
+<h3 class="p-4">All Courses</h3>
+
+<div class="grid ">
+    
+  <div class="row ml-3">
+      
+    <div class="col-sm-3 m-2" *ngFor="let course of courses">
+    <div class="card  " >
+        <div class="card-body ">
+            <img class="courseImage" src="{{course.image}}">
+              <h5 class="card-title">
+                {{course.course}}
+                
+              </h5>
+              
+              <div class="card-text">{{course.faculty}} 
+                  <span [ngStyle]="{'background-color':'green'}"
+                   class ="badge badge-secondary">{{course.facultyLoves}}</span>
+              </div>
+
+              <div class="card-text" *ngIf="!course.faculty">No Faculty Assigned
+              </div>
+
+              <div  [ngSwitch]="course.specialTag" 
+                [ngStyle]="{'font-weight':course.specialTag === 'hot' ? '500' : '200' }">
+                
+                <div *ngSwitchCase="'hot'">HOT!</div>
+                  <div *ngSwitchCase="'Selling out fast'">SELLING OUT FAST</div>
+                  <div *ngSwitchDefault>SEE YOU SOON!</div>
+              </div>
+                  
+              <div class="card-text" [ngStyle]="{'color':getColor(course.likes)}">Likes  
+                 {{course.likes}} 
+                </div>
+
+                <div class="card-text" [class.active] ="course.isSpecial"> 
+                  Special Status : {{course.isSpecial}}
+               </div>
+
+                <div class="card-text" [ngClass]="{
+                  'text-success':course.location === 'UK',
+                  
+                  'text-danger':course.location === 'US'
+                  }">  
+                    {{course.location}} 
+                 </div>
+
+          </div>
+
+          <div class="card-footer" >
+                
+                <button class="btn btn-border pull-right" 
+                [disabled] = "!course.enabled" (click) = "onEnroll($event)">
+                Enroll</button>
+
+
+          </div>
+      </div>
+      </div>
+      
+      <div class=" col-sm-3 m-2">
+          <div class="card  " >
+              <div class="card-body ">
+            <h3>Add Course</h3>
+            <form #courseForm="ngForm" (ngSubmit)="onFormSubmit(courseForm)" >
+              <div class="form-group">
+                <label for="name">Course</label>
+                <input type="text" 
+                 class="form-control" id="course" 
+                 [(ngModel)]="newCourse.course" name="course"  minlength="5"
+                required 
+                  #courseName="ngModel">
+
+                  <!-- <div class="error" *ngIf="courseName.errors?.required">
+                      Course is required!
+                      </div>
+                
+                      <div class="error"  *ngIf="courseName.errors?.minlength">
+                          Course at least 5 chars
+                        </div>
+                
+                        <div  class="error"  *ngIf="courseName.errors?.maxlength">
+                            Course at least 10 chars
+                          </div>
+          
+                           -->
+              </div>
+              
+              
+              <div class="form-group">
+                <label for="faculty">Faculty</label>
+                <select class="form-control"  id="faculty"
+                        
+                       required [(ngModel)]="newCourse.faculty" name="faculty">
+                  <option *ngFor="let faculty of allFaculty" [value]="faculty.name">{{faculty.name}}</option>
+                </select>
+              </div>
+          
+          
+              <div class="form-group">
+                  <label for="name">Image</label>
+                  <input type="text"  class="form-control" id="image" 
+                  [(ngModel)]="newCourse.image" name="image">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Tag</label>
+                    <input type="text"  class="form-control" required id="specialTag" 
+                    [(ngModel)]="newCourse.specialTag" name="specialTag"
+                    #specialTag="ngModel"
+                    minlength="5" maxlength="20">
+
+
+                  <!-- <div *ngIf="specialTag.errors?.required">
+                      SpecialTag is required!
+                      </div> -->
+
+                      <div style="border:1px solid #ddd;padding:10px">
+                        <div> Dirty {{specialTag.dirty}}</div>
+                        <div> Pristine {{specialTag.pristine}}</div>
+                        <div> Touched {{specialTag.touched}}</div>
+                        <div> Valid {{specialTag.valid}}</div>
+                        <!-- <div> Max Length Error {{specialTag.errors?.maxlength}}</div>
+                        <div> Min Length Error {{specialTag.errors?.minlength}}</div> -->
+                      </div>   
+
+
+                  </div>
+                       
+    
+                
+              <input type="radio" name="isFeatured" [(ngModel)]="newCourse.isSpecial" value=true>
+              Special
+              
+
+              
+          
+        
+              <br>
+              <button type="submit" class="btn btn-success" [disabled]="!courseForm.valid" >Submit</button>
+              <!-- <button type="reset" class="btn btn-default" (click) = onReset(courseForm) >Reset</button> -->
+              
+        
+            </form>
+          
+          </div>
+          </div>
+
+
+    </div>
+</div>
+
+
+  
+  
+  
+  
